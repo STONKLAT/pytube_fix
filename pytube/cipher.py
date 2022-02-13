@@ -274,7 +274,7 @@ def get_throttling_function_name(js: str) -> str:
         if function_match:
             logger.debug("finished regex search, matched: %s", pattern)
             function_name = function_match.group(1)
-            is_Array = True if '[' or ']' in function_name else False
+            is_Array = True if '[' in function_name or ']' in function_name else False
             if is_Array:
                 index = int(re.findall(r'\d+', function_name)[0])
                 name = function_name.split('[')[0]
@@ -299,7 +299,7 @@ def get_throttling_function_code(js: str) -> str:
         The name of the function used to compute the throttling parameter.
     """
     # Begin by extracting the correct function name
-    name = "jha"
+    name = re.escape(get_throttling_function_name(js))
 
     # Identify where the function is defined
     pattern_start = r"%s=function\(\w\)" % name
