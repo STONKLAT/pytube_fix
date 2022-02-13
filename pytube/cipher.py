@@ -307,7 +307,7 @@ def get_throttling_function_code(js: str) -> str:
     match = regex.search(js)
 
     # Extract the code within curly braces for the function itself, and merge any split lines
-    code_lines_list = find_object_from_startpoint(js).split('\n')
+    code_lines_list = find_object_from_startpoint(js, match.span()[1]).split('\n')
     joined_lines = "".join(code_lines_list)
 
     # Prepend function definition (e.g. `Dea=function(a)`)
